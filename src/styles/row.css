@@ -1,0 +1,72 @@
+.game_row {
+  display: flex;
+  flex-direction: column;
+
+  align-items: center;
+  margin-inline: 5%;
+  width: 90%;
+}
+
+.game_posters {
+  display: grid;
+  width: 100%;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  overflow: hidden;
+  grid-column-gap: 20px;
+  grid-row-gap: 30px;
+}
+.game_poster {
+  width: 100%;
+  height: fit-contain;
+  border-radius: 10px;
+  overflow-x: hidden;
+  background-color: #202020;
+}
+.game_poster_image {
+  min-height: 250px;
+  max-width: 100%;
+  margin-bottom: 20px;
+}
+
+.platforms-meta{
+    display: flex;
+    margin-inline: 5%;
+    margin-bottom: 10px;
+    align-items: center;
+    justify-content: space-between;
+}
+.platform_icons{
+    display: flex;
+}
+.platform_icon{
+    margin-right: 10px;
+}
+.metascore{
+    font-size: 14px;
+    font-weight: 700;
+    padding: 5px;
+    color: #6dc849;
+    border: 1px solid #3f6330;
+    border-radius: 5px;
+}
+.game_poster h2 {
+  margin-left: 20px;
+  margin-bottom: 10px;
+}
+.reviews{
+  display: inline-flex;
+  margin-left: 20px;
+  align-items: center;
+  justify-content: center;
+  background-color: #303030;
+  width: fit-content;
+  padding-inline: 10px;
+  padding-block: 2px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+.reviews span {
+  font-weight: 700;
+  font-size: 20px;
+  padding-right: 10px;
+}
