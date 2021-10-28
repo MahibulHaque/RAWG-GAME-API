@@ -54,7 +54,7 @@
   margin-bottom: 10px;
 }
 .reviews{
-  display: inline-flex;
+  display: flex;
   margin-left: 20px;
   align-items: center;
   justify-content: center;
@@ -69,4 +69,13 @@
   font-weight: 700;
   font-size: 20px;
   padding-right: 10px;
+}
+.viewButton{
+    background-color: none;
+    cursor: pointer;
+    font-family: Helvetica, sans-serif;
+    text-align: center;
+    text-decoration: underline;
+    text-decoration-color: rgb(245, 245, 245);
+    font-size: 12px;
 }

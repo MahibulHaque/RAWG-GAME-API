@@ -46,7 +46,9 @@ const Row = ({ title, fetchUrl }) => {
               <span>+</span>
               {game.reviews_count}
             </div>
+            <div className="viewButton">View More</div>
           </div>
+          
         ))}
       </div>
     </div>
