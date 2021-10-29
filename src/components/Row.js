@@ -22,7 +22,7 @@ const Row = ({ title, fetchUrl }) => {
 
   return (
     <div className="game_row">
-      <h1 style={{ marginBlock: "20px" }}>{title}</h1>
+      <h1 style={{ marginBlock: "20px", fontSize:"clamp(30px,6vw,70px)"}}>{title}</h1>
       <div className="game_posters">
         {games.map((game) => (
           <div className="game_poster" key={game.id}>

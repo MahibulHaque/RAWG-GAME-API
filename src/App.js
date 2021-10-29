@@ -9,6 +9,7 @@ function App() {
       <Row title="Shooter Games" fetchUrl={requests.fetchShooterGames} />
       <Row title="Action Games" fetchUrl={requests.fetchActionGames} />
       <Row title="Indie Games" fetchUrl={requests.fetchIndieGames} />
+      <Row title="This Month" fetchUrl={requests.fetchThisMonth}/>
     </div>
   );
 }
