@@ -3,6 +3,7 @@ import axios from "axios";
 import "../styles/row.css";
 import { FaWindows, FaPlaystation, FaXbox } from "react-icons/fa";
 import { SiNintendoswitch } from "react-icons/si";
+import { AiFillDownCircle } from "react-icons/ai";
 
 const Row = ({ title, fetchUrl }) => {
   const [games, setGames] = useState([]);
@@ -17,17 +18,22 @@ const Row = ({ title, fetchUrl }) => {
     fetchData();
   }, [fetchUrl]);
 
+  const handleViewClick = () => {};
+
   return (
     <div className="game_row">
       <h1 style={{ marginBlock: "20px" }}>{title}</h1>
       <div className="game_posters">
         {games.map((game) => (
           <div className="game_poster" key={game.id}>
-            <img
-              src={game.background_image}
-              alt={game.name}
-              className="game_poster_image"
-            />
+            <div className="image_wrapper">
+              <img
+                src={game.background_image}
+                alt={game.name}
+                className="game_poster_image"
+              />
+            </div>
+
             <div className="platforms-meta">
               <div className="platform_icons">
                 {game.parent_platforms.map((platforms) => (
@@ -46,9 +52,13 @@ const Row = ({ title, fetchUrl }) => {
               <span>+</span>
               {game.reviews_count}
             </div>
-            <div className="viewButton">View More</div>
+            <div className="viewButton">
+              <AiFillDownCircle
+                style={{ width: "25px", height: "25px" }}
+                onClick={handleViewClick}
+              />
+            </div>
           </div>
-          
         ))}
       </div>
     </div>
