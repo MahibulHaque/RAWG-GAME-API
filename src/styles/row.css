@@ -1,7 +1,7 @@
 .game_row {
   display: flex;
+  align-self: center;
   flex-direction: column;
-
   align-items: center;
   margin-inline: 5%;
   width: 90%;
@@ -54,6 +54,23 @@
     border: 1px solid #3f6330;
     border-radius: 5px;
 }
+.metascore__yellow{
+  font-size: 14px;
+  font-weight: 700;
+  padding: 5px;
+  color: #fdca52;
+  border: 1px solid #fdca52;
+  border-radius: 5px;
+}
+.metascore__red{
+  font-size: 14px;
+  font-weight: 700;
+  padding: 5px;
+  color: #FC4B37;
+  border: 1px solid #FC4B37;
+  border-radius: 5px;
+}
+
 .game_poster h2 {
   margin-left: 20px;
   margin-bottom: 10px;
