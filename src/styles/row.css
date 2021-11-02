@@ -13,7 +13,7 @@
   grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
   overflow: hidden;
   grid-column-gap: 20px;
-  grid-row-gap: 10px;
+  grid-row-gap: 20px;
 }
 .game_poster {
   width: 100%;
@@ -22,6 +22,11 @@
   border-radius: 15px;
   overflow-x: hidden;
   background-color: #202020;
+  box-shadow: 0 10px 20px 0 rgb(0 0 0 / 7%);
+  cursor: pointer;
+}
+.game_poster:hover {
+  border: 4px solid rgba(249, 249, 249, 0.8);
 }
 
 .image_wrapper {

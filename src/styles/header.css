@@ -47,14 +47,19 @@
   font-size: 14px;
 }
 
-.header__center:hover {
+
+.header__center:focus-within {
   background-color: rgb(255, 255, 255);
 }
-.header__center:hover > svg {
+.header__center:focus-within > svg {
   fill: black;
 }
-.header__center:hover > input::placeholder {
+.header__center:focus-within > input::placeholder {
   color: rgb(102, 102, 102);
+}
+.header__center:focus-within>input{
+  caret-color: black;
+  color: black;
 }
 
 .header__right {
