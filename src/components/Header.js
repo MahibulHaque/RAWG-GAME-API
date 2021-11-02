@@ -2,7 +2,7 @@ import React from "react";
 import { FaSearch, FaUser } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import "../styles/header.css";
-import Image from '../images/EA logo.svg';
+import Image from '../images/RAWG logo.svg';
 
 
 const Header = () => {

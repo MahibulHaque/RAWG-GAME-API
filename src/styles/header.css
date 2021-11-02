@@ -3,13 +3,14 @@
   justify-content: space-between;
   align-items: center;
   top: 0;
+  height: 100px;
   z-index: 100;
   width: 100%;
 }
 
 .header__icon {
   object-fit: contain;
-  height: 100px;
+  height: 20px;
   margin-left: 5vw;
 }
 
