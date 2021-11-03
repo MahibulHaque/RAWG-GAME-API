@@ -11,7 +11,6 @@ const Row = ({ title, fetchUrl }) => {
   useEffect(() => {
     async function fetchData() {
       const request = await axios.get(fetchUrl);
-      console.log(request.data.results);
       setGames(request.data.results);
       return request;
     }
@@ -21,7 +20,7 @@ const Row = ({ title, fetchUrl }) => {
   const handleViewClick = () => {};
 
   return (
-    <>
+    <div className="row">
       <h1
         style={{
           marginBlock: "20px",
@@ -82,7 +81,7 @@ const Row = ({ title, fetchUrl }) => {
           ))}
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

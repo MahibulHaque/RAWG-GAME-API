@@ -6,5 +6,11 @@
   box-sizing: border-box;
 }
 .App{
+  display: flex;
+  flex-direction: column;
   background-color: #151515;
+}
+.main_body{
+  display: flex;
+  justify-content: space-between;
 }
