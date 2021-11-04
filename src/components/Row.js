@@ -1,12 +1,12 @@
-import React, { useState, useEffect, useRef } from "react";
+import React from "react";
 import axios from "axios";
 import { useQuery } from "react-query";
 import "../styles/row.css";
 import { FaWindows, FaPlaystation, FaXbox } from "react-icons/fa";
 import { SiNintendoswitch } from "react-icons/si";
+import Loading from "./Loading";
 
 const Row = ({ title, fetchUrl }) => {
-  const gamesResult = useRef([]);
   // const [games,setGames] = useState([])
 
   // useEffect(() => {
@@ -23,7 +23,7 @@ const Row = ({ title, fetchUrl }) => {
   );
   if(isLoading){
     return(
-      <div className="row">Loading...</div>
+      <Loading />
     )
   }
   if (isSuccess) {

@@ -3,7 +3,7 @@ const API_KEY = process.env.REACT_APP_API_KEY;
 
 const requests = {
     fetchTop10: `https://api.rawg.io/api/games?key=${API_KEY}&page=1&dates=2020-01-01,2021-09-01&metacritic=80,100`,
-    fetchActionGames:`https://api.rawg.io/api/games?key=${API_KEY}&genres=4&dates=`,
+    fetchActionGames:`https://api.rawg.io/api/games?key=${API_KEY}&genres=4`,
     fetchIndieGames: `https://api.rawg.io/api/games?key=${API_KEY}&genres=51&dates=2020-12-31,2021-9-31`,
     fetchThisMonth: `https://api.rawg.io/api/games?key=${API_KEY}&dates=2021-09-01,2021-09-29`,
     fetchRacingGames:`https://api.rawg.io/api/games?key=${API_KEY}&genres=1&dates=2017-01-01,2021-09-21`,
