@@ -6,10 +6,23 @@
     align-items:center;
     justify-content: center;
     background-color: #2d2d2d;
+    overflow: hidden;
+}
+.iconHolder>img{
+    height: 100%;
 }
 .ListItem:hover .iconHolder{
     background-color: rgb(255,255,255);
 }
 .ListItem:hover .iconHolder>svg{
     fill: black;
+}
+.drawer__paper{
+    background: #151515;
+    width: 250px;
+    border: none;
+    outline: none;
+}
+.drawer__paper::-webkit-scrollbar{
+    display: none;
 }

@@ -3,7 +3,6 @@ import axios from "axios";
 import "../styles/row.css";
 import { FaWindows, FaPlaystation, FaXbox } from "react-icons/fa";
 import { SiNintendoswitch } from "react-icons/si";
-import { AiFillDownCircle } from "react-icons/ai";
 
 const Row = ({ title, fetchUrl }) => {
   const [games, setGames] = useState([]);
@@ -17,7 +16,6 @@ const Row = ({ title, fetchUrl }) => {
     fetchData();
   }, [fetchUrl]);
 
-  const handleViewClick = () => {};
 
   return (
     <div className="row">
@@ -70,12 +68,6 @@ const Row = ({ title, fetchUrl }) => {
               <div className="reviews">
                 <span>+</span>
                 {game.reviews_count}
-              </div>
-              <div className="viewButton">
-                <AiFillDownCircle
-                  style={{ width: "25px", height: "25px" }}
-                  onClick={handleViewClick}
-                />
               </div>
             </div>
           ))}
