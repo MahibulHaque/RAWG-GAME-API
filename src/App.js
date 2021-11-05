@@ -16,6 +16,24 @@ function App() {
             <Route exact from="/">
               <Row title="Popular in 2021" fetchUrl={requests.fetchTop10} />
             </Route>
+            <Route exact path="/Last 30 Days">
+              <Row title="Last 30 Days" fetchUrl={requests.fetchThisMonth} />
+            </Route>
+            <Route exact path="/This week">
+              <Row title="This Week" fetchUrl={requests.fetchThisWeek} />
+            </Route>
+            <Route exact path="/Next week">
+              <Row title="Next Week" fetchUrl={requests.fetchNextWeek} />
+            </Route>
+            <Route exact path="/PC-games">
+              <Row title="PC Games" fetchUrl={requests.fetchPCGames} />
+            </Route>
+            <Route exact path="/PS4-games">
+              <Row title="Playstation 4 Games" fetchUrl={requests.fetchPS4Games} />
+            </Route>
+            <Route exact path="/Xbox-games">
+              <Row title="Xbox Games" fetchUrl={requests.fetchXboxGames} />
+            </Route>
             <Route exact path="/Action-games">
               <Row title="Action Games" fetchUrl={requests.fetchActionGames} />
             </Route>

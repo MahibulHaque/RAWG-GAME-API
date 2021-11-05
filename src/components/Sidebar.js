@@ -64,17 +64,17 @@ const Sidebar = (props) => {
     {
       text: "Last 30 Days",
       icon: <FaStar />,
-      onClick: () => history.push("/last-month"),
+      onClick: () => history.push("/Last 30 Days"),
     },
     {
       text: "This Week",
       icon: <FaFireAlt />,
-      onClick: () => history.push("/this-week"),
+      onClick: () => history.push("/This Week"),
     },
     {
       text: "Next Week",
       icon: <BsFillSkipForwardFill />,
-      onClick: () => history.push("/next-week"),
+      onClick: () => history.push("/Next Week"),
     },
   ];
 
@@ -82,17 +82,17 @@ const Sidebar = (props) => {
     {
       text: "PC",
       icon: <FaWindows />,
-      onClick: () => history.push("/PC"),
+      onClick: () => history.push("/PC-games"),
     },
     {
       text: "Playstation 4",
       icon: <FaPlaystation />,
-      onClick: () => history.push("/PS4"),
+      onClick: () => history.push("/PS4-games"),
     },
     {
       text: "Xbox One",
       icon: <FaXbox />,
-      onClick: () => history.push("/Xbox"),
+      onClick: () => history.push("/Xbox-games"),
     },
   ];
   const Genres = [
