@@ -13,29 +13,30 @@
 }
 
 .game_posters {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: center;
-  gap: 20px;
-  /* -ms-grid-column-align: center;
-  grid-template-columns: repeat(auto-fit, 350px);
+  display: grid;
+  width: 100%;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
   overflow: hidden;
   grid-column-gap: 20px;
-  grid-row-gap: 20px; */
+  grid-row-gap: 20px;
+  place-items: center;
 }
 .game_poster {
   width: 350px;
   height: 425px;
-  overflow-y: hidden;
+  overflow: hidden;
   border-radius: 15px;
-  overflow-x: hidden;
   background-color: #202020;
   box-shadow: 0 10px 20px 0 rgb(0 0 0 / 7%);
   cursor: pointer;
+  transition: all 100ms ease-in-out 0s;
+  transform-origin: top;
+
 }
+
 .game_poster:hover {
-  border: 4px solid rgba(249, 249, 249, 0.8);
+  transform: scaleY(1.25);
+  z-index: 3;
 }
 
 .image_wrapper {
@@ -48,19 +49,6 @@
   height: 100%;
 }
 
-.platforms-meta {
-  display: flex;
-  margin-inline: 5%;
-  margin-bottom: 10px;
-  align-items: center;
-  justify-content: space-between;
-}
-.platform_icons {
-  display: flex;
-}
-.platform_icon {
-  margin-right: 10px;
-}
 .metascore {
   font-size: 14px;
   font-weight: 700;
@@ -92,33 +80,22 @@
 }
 .reviews {
   display: flex;
-  margin-left: 20px;
   align-items: center;
   justify-content: center;
   background-color: #303030;
   width: fit-content;
-  padding-inline: 10px;
-  padding-block: 2px;
-  border-radius: 10px;
-  margin-bottom: 10px;
+  padding-inline: 5px;
+  padding-block: 2.5px;
+  border-radius: 5px;
 }
 .reviews span {
   font-weight: 700;
   font-size: 20px;
-  padding-right: 10px;
-}
-.viewButton {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.viewButton > svg:hover {
-  fill: #303030;
-  cursor: pointer;
+  padding-right: 5px;
 }
 
-@media screen and (min-width: 768px) {
+/* @media screen and (min-width: 768px) {
   .game_poster:nth-child(even) {
     margin-top: 35px;
   }
-}
+} */
