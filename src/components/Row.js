@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
 import axios from "axios";
-import { useQuery } from "react-query";
+import { useInfiniteQuery } from "react-query";
 import "../styles/row.css";
 import { FaWindows, FaPlaystation, FaXbox } from "react-icons/fa";
 import { BsChevronDown } from "react-icons/bs";
@@ -19,13 +19,13 @@ import {
 
 const useStyles = makeStyles((theme) => ({
   Card: {
-    alignSelf:"start",
+    alignSelf: "start",
     width: "345px",
     background: "#202020",
     color: "white",
     borderRadius: "15px",
-    '&:focus-within': {
-      zIndex:"3",
+    "&:focus-within": {
+      zIndex: "3",
     },
   },
   CardMedia: {
@@ -62,6 +62,46 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Row = ({ title, fetchUrl }) => {
+  const fetchGames = async (page = 1) => {
+    const response = await fetch(`${fetchUrl}&page=${page}`);
+    return response.json();
+  };
+
+  const {
+    data,
+    isSuccess,
+    isLoading,
+    hasNextPage,
+    fetchNextPage,
+    isFetching,
+    isFetchingNextPage,
+  } = useInfiniteQuery([title], ({ pageParam = 1 }) => fetchGames(pageParam), {
+    getNextPageParam: (lastPage, allPages) => {
+      const maxPages = lastPage.count / 20;
+      const nextPage = allPages.length + 1;
+      return nextPage <= maxPages ? nextPage : undefined;
+    },
+  });
+  useEffect(() => {
+    const onScroll = async (event) => {
+      let fetching = false;
+      const { scrollHeight, scrollTop, clientHeight } =
+        event.target.scrollingElement;
+      if (!fetching && scrollHeight - scrollTop <= clientHeight * 1.5) {
+        fetching = true;
+        if (hasNextPage) {
+          console.log("hi");
+          await fetchNextPage();
+        }
+        fetching = false;
+      }
+    };
+    document.addEventListener("scroll", onScroll);
+    return () => {
+      document.removeEventListener("scroll", onScroll);
+    };
+  }, [fetchNextPage, hasNextPage]);
+
   const [expandedId, setExpandedId] = React.useState(-1);
 
   const handleExpandClick = (i) => {
@@ -70,14 +110,10 @@ const Row = ({ title, fetchUrl }) => {
 
   const classes = useStyles();
 
-  const { data, isSuccess, isLoading } = useQuery([title], () =>
-    axios.get(fetchUrl).then((response) => response?.data?.results)
-  );
   if (isLoading) {
     return <Loading />;
   }
   if (isSuccess) {
-    const games = data;
     return (
       <div className="row">
         <h1
@@ -91,133 +127,159 @@ const Row = ({ title, fetchUrl }) => {
         </h1>
         <div className="game_row">
           <div className="game_posters">
-            {games.map((game, i) => (
-              <Card className={classes.Card} key={game.id}>
-                <CardMedia
-                  component="img"
-                  height="194"
-                  image={game.background_image}
-                />
-                <CardContent className={classes.CardContent}>
-                  <div>
-                    {game.parent_platforms.map((platforms) => (
-                      <IconButton
-                        key={platforms.platform.name}
-                        className={classes.IconButton}
-                        size="small"
-                      >
-                        {platforms.platform.id === 1 && <FaWindows />}
-                        {platforms.platform.id === 2 && <FaPlaystation />}
-                        {platforms.platform.id === 3 && <FaXbox />}
-                        {platforms.platform.id === 4 && <SiNintendoswitch />}
-                      </IconButton>
-                    ))}
-                  </div>
-
-                  {game.metacritic >= 75 && (
-                    <div className="metascore">{game.metacritic}</div>
-                  )}
-                  {game.metacritic < 75 && game.metacritic > 50 && (
-                    <div className="metascore__yellow">{game.metacritic}</div>
-                  )}
-                  {game.metacritic < 50 && game.metacritic != null && (
-                    <div className="metascore__red">{game.metacritic}</div>
-                  )}
-                </CardContent>
-                <CardContent className={classes.CardContent}>
-                  <Typography
-                    variant="h6"
-                    style={{ fontFamily: "Helvetica", fontWeight: "700",color:"white" }}
-                  >
-                    {game.name}
-                  </Typography>
-                </CardContent>
-                <CardActions disableSpacing className={classes.CardActions}>
-                  <div className="reviews">
-                    <span>+</span>
-                    {game.reviews_count}
-                  </div>
-                  <IconButton
-                    onClick={() => handleExpandClick(i)}
-                    aria-expanded={expandedId === i}
-                    aria-label="show more"
-                    className={
-                      expandedId === i ? classes.expandOpen : classes.expand
-                    }
-                  >
-                    <BsChevronDown />
-                  </IconButton>
-                </CardActions>
-                <Collapse in={expandedId === i} timeout="auto" unmountOnExit>
-                  <CardContent>
-                    <div
-                      style={{
-                        display: "flex",
-                        justifyContent: "space-between",
-                        alignItems: "center",
-                        paddingBlock:"10px",
-                      }}
-                    >
-                      <Typography
-                        variant="p"
-                        style={{ color: "rgb(107,107,107)" ,fontSize:"14px"}}
-                      >
-                        Release Date:
-                      </Typography>
-                      <Typography variant="p" style={{fontSize:"14px"}}>{game.released}</Typography>
+            {data.pages.map((page) =>
+              page?.results.map((game, i) => (
+                <Card className={classes.Card} key={game.id}>
+                  <CardMedia
+                    component="img"
+                    height="194"
+                    image={game.background_image}
+                  />
+                  <CardContent className={classes.CardContent}>
+                    <div>
+                      {game.parent_platforms.map((platforms) => (
+                        <IconButton
+                          key={platforms.platform.name}
+                          className={classes.IconButton}
+                          size="small"
+                        >
+                          {platforms.platform.id === 1 && <FaWindows />}
+                          {platforms.platform.id === 2 && <FaPlaystation />}
+                          {platforms.platform.id === 3 && <FaXbox />}
+                          {platforms.platform.id === 4 && <SiNintendoswitch />}
+                        </IconButton>
+                      ))}
                     </div>
-                    <div
+
+                    {game.metacritic >= 75 && (
+                      <div className="metascore">{game.metacritic}</div>
+                    )}
+                    {game.metacritic < 75 && game.metacritic > 50 && (
+                      <div className="metascore__yellow">{game.metacritic}</div>
+                    )}
+                    {game.metacritic < 50 && game.metacritic != null && (
+                      <div className="metascore__red">{game.metacritic}</div>
+                    )}
+                  </CardContent>
+                  <CardContent className={classes.CardContent}>
+                    <Typography
+                      variant="h6"
                       style={{
-                        display: "flex",
-                        justifyContent: "space-between",
-                        alignItems: "center",
+                        fontFamily: "Helvetica",
+                        fontWeight: "700",
+                        color: "white",
                       }}
                     >
-                      <Typography
-                        variant="p"
-                        style={{ color: "rgb(107,107,107)" , fontSize:"14px"}}
-                      >
-                        Genres:
-                      </Typography>
-                      <Typography
-                        variant="p"
+                      {game.name}
+                    </Typography>
+                  </CardContent>
+                  <CardActions disableSpacing className={classes.CardActions}>
+                    <div className="reviews">
+                      <span>+</span>
+                      {game.reviews_count}
+                    </div>
+                    <IconButton
+                      onClick={() => handleExpandClick(i)}
+                      aria-expanded={expandedId === i}
+                      aria-label="show more"
+                      className={
+                        expandedId === i ? classes.expandOpen : classes.expand
+                      }
+                    >
+                      <BsChevronDown />
+                    </IconButton>
+                  </CardActions>
+                  <Collapse in={expandedId === i} timeout="auto" unmountOnExit>
+                    <CardContent>
+                      <div
                         style={{
                           display: "flex",
-                          fontSize: "12px",
-                          flexWrap: "wrap",
                           justifyContent: "space-between",
+                          alignItems: "center",
+                          paddingBlock: "10px",
                         }}
                       >
-                        <p
+                        <Typography
+                          variant="p"
                           style={{
                             color: "rgb(107,107,107)",
-                            marginRight: "4px",
+                            fontSize: "14px",
                           }}
                         >
-                          {game.genres[0]?.name}
-                        </p>
-                        <p
+                          Release Date:
+                        </Typography>
+                        <Typography variant="p" style={{ fontSize: "14px" }}>
+                          {game.released}
+                        </Typography>
+                      </div>
+                      <div
+                        style={{
+                          display: "flex",
+                          justifyContent: "space-between",
+                          alignItems: "center",
+                        }}
+                      >
+                        <Typography
+                          variant="p"
                           style={{
                             color: "rgb(107,107,107)",
-                            marginRight: "5px",
+                            fontSize: "14px",
                           }}
                         >
-                          {game.genres[1]?.name}
-                        </p>
-                        <p
+                          Genres:
+                        </Typography>
+                        <Typography
+                          variant="p"
                           style={{
-                            color: "rgb(107,107,107)",
+                            display: "flex",
+                            fontSize: "12px",
+                            flexWrap: "wrap",
+                            justifyContent: "space-between",
                           }}
                         >
-                          {game.genres[2]?.name}
-                        </p>
-                      </Typography>
-                    </div>
-                  </CardContent>
-                </Collapse>
-              </Card>
-            ))}
+                          <p
+                            style={{
+                              color: "rgb(107,107,107)",
+                              marginRight: "4px",
+                            }}
+                          >
+                            {game.genres[0]?.name}
+                          </p>
+                          <p
+                            style={{
+                              color: "rgb(107,107,107)",
+                              marginRight: "5px",
+                            }}
+                          >
+                            {game.genres[1]?.name}
+                          </p>
+                          <p
+                            style={{
+                              color: "rgb(107,107,107)",
+                            }}
+                          >
+                            {game.genres[2]?.name}
+                          </p>
+                        </Typography>
+                      </div>
+                    </CardContent>
+                  </Collapse>
+                </Card>
+              ))
+            )}
           </div>
+          {isFetchingNextPage && isFetching && (
+            <div
+              style={{
+                display: "flex",
+                width: "100%",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <Loading />
+            </div>
+          )}
         </div>
       </div>
     );
