@@ -19,10 +19,14 @@ import {
 
 const useStyles = makeStyles((theme) => ({
   Card: {
+    alignSelf:"start",
     width: "345px",
     background: "#202020",
     color: "white",
     borderRadius: "15px",
+    '&:focus-within': {
+      zIndex:"3",
+    },
   },
   CardMedia: {
     height: "194px",
@@ -74,7 +78,6 @@ const Row = ({ title, fetchUrl }) => {
   }
   if (isSuccess) {
     const games = data;
-    console.log(games);
     return (
       <div className="row">
         <h1
@@ -124,8 +127,7 @@ const Row = ({ title, fetchUrl }) => {
                 <CardContent className={classes.CardContent}>
                   <Typography
                     variant="h6"
-                    color="white"
-                    style={{ fontFamily: "Helvetica", fontWeight: "700" }}
+                    style={{ fontFamily: "Helvetica", fontWeight: "700",color:"white" }}
                   >
                     {game.name}
                   </Typography>
