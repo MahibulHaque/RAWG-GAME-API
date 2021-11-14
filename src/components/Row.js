@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import axios from "axios";
 import { useInfiniteQuery } from "react-query";
 import "../styles/row.css";
 import { FaWindows, FaPlaystation, FaXbox } from "react-icons/fa";
@@ -82,6 +81,7 @@ const Row = ({ title, fetchUrl }) => {
       return nextPage <= maxPages ? nextPage : undefined;
     },
   });
+  
   useEffect(() => {
     const onScroll = async (event) => {
       let fetching = false;
