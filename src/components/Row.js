@@ -9,7 +9,6 @@ import LazyLoad from "react-lazyload";
 import {
   Card,
   CardActions,
-  CardMedia,
   CardContent,
   makeStyles,
   Typography,
@@ -27,9 +26,6 @@ const useStyles = makeStyles((theme) => ({
     "&:focus-within": {
       zIndex: "3",
     },
-  },
-  CardMedia: {
-    height: "194px",
   },
   IconButton: {
     marginRight: "5px",
