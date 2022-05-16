@@ -32,7 +32,9 @@ const useStyles = makeStyles({
     
     width: "250px",
     zIndex: "1",
-    
+    ['@media (max-width:768px)']: { // eslint-disable-line no-useless-computed-key
+      display:"none"
+    }
   },
   toolbar: {
     display: "flex",

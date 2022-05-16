@@ -5,6 +5,7 @@ import { FaWindows, FaPlaystation, FaXbox } from "react-icons/fa";
 import { BsChevronDown } from "react-icons/bs";
 import { SiNintendoswitch } from "react-icons/si";
 import Loading from "./Loading";
+import LazyLoad from "react-lazyload";
 import {
   Card,
   CardActions,
@@ -19,7 +20,7 @@ import {
 const useStyles = makeStyles((theme) => ({
   Card: {
     alignSelf: "start",
-    width: "345px",
+    width: "100%",
     background: "#202020",
     color: "white",
     borderRadius: "15px",
@@ -130,11 +131,9 @@ const Row = ({ title, fetchUrl }) => {
             {data.pages.map((page) =>
               page?.results.map((game, i) => (
                 <Card className={classes.Card} key={game.id}>
-                  <CardMedia
-                    component="img"
-                    height="194"
-                    image={game.background_image}
-                  />
+                  <LazyLoad height={200}>
+                    <img src={game.background_image} alt={game.name} style={{width:"100%", height:'200px'}}/>
+                  </LazyLoad>
                   <CardContent className={classes.CardContent}>
                     <div>
                       {game.parent_platforms.map((platforms) => (

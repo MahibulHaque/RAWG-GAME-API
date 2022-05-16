@@ -17,7 +17,7 @@
 .game_posters {
   display: grid;
   width: 100%;
-  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   grid-auto-rows: 377px;
   overflow-x: hidden;
   grid-column-gap: 20px;
