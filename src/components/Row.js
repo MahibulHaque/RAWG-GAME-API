@@ -15,6 +15,7 @@ import {
   IconButton,
   Collapse,
 } from "@material-ui/core";
+import Skeleton from "@material-ui/lab/Skeleton";
 
 const useStyles = makeStyles((theme) => ({
   Card: {
@@ -23,6 +24,9 @@ const useStyles = makeStyles((theme) => ({
     background: "#202020",
     color: "white",
     borderRadius: "15px",
+    display: "flex",
+    // alignItems: "center",
+    flexDirection: "column",
     "&:focus-within": {
       zIndex: "3",
     },
@@ -35,12 +39,14 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "space-between",
     alignItems: "center",
     padding: "10px",
+    width: "100%",
   },
   CardActions: {
     display: "flex",
     justifyContent: "space-between",
     paddingInline: "10px",
     padding: "0px",
+    width: "100%",
   },
   expand: {
     transform: "rotate(0deg)",
@@ -78,7 +84,7 @@ const Row = ({ title, fetchUrl }) => {
       return nextPage <= maxPages ? nextPage : undefined;
     },
   });
-  
+
   useEffect(() => {
     const onScroll = async (event) => {
       let fetching = false;
@@ -108,7 +114,51 @@ const Row = ({ title, fetchUrl }) => {
   const classes = useStyles();
 
   if (isLoading) {
-    return <Loading />;
+    return (
+      <div className="row">
+        <h1
+          style={{
+            marginBlock: "20px",
+            fontSize: "clamp(25px,5vw,60px)",
+            marginLeft: "5%",
+          }}
+        >
+          {title}
+        </h1>
+        <div className="game_row">
+          <div className="game_posters">
+            {Array.from(new Array(8)).map((index) => (
+              <Card className={classes.Card} key={index}>
+                <Skeleton
+                  animation="wave"
+                  variant="rect"
+                  width="100%"
+                  height={200}
+                  style={{ marginBottom: 6 }}
+                />
+                <Skeleton
+                  animation="wave"
+                  height={20}
+                  style={{ margin: 10 }}
+                />
+                <Skeleton
+                  animation="wave"
+                  height={20}
+                  width="60%"
+                  style={{ marginInline:"10px", marginBottom:"10px" }}
+                />
+                <Skeleton
+                  animation="wave"
+                  height={20}
+                  width="80%"
+                  style={{ marginInline:"10px", marginBottom:"10px" }}
+                />
+              </Card>
+            ))}
+          </div>
+        </div>
+      </div>
+    );
   }
   if (isSuccess) {
     return (
@@ -126,9 +176,27 @@ const Row = ({ title, fetchUrl }) => {
           <div className="game_posters">
             {data.pages.map((page) =>
               page?.results.map((game, i) => (
-                <Card className={classes.Card} key={game.id}>
-                  <LazyLoad height={200}>
-                    <img src={game.background_image} alt={game.name} style={{width:"100%", height:'200px'}}/>
+                <Card
+                  className={classes.Card}
+                  key={game.id}
+                  style={{ zIndex: `${expandedId === i ? 10 : ""}` }}
+                >
+                  <LazyLoad
+                    height={200}
+                    placeholder={
+                      <Skeleton
+                        variant="rect"
+                        height="200px"
+                        width="100%"
+                        style={{ overflow: "hidden", minWidth: "100%" }}
+                      />
+                    }
+                  >
+                    <img
+                      src={game.background_image}
+                      alt={game.name}
+                      style={{ minWidth: "100%", height: "200px" }}
+                    />
                   </LazyLoad>
                   <CardContent className={classes.CardContent}>
                     <div>
@@ -184,7 +252,12 @@ const Row = ({ title, fetchUrl }) => {
                       <BsChevronDown />
                     </IconButton>
                   </CardActions>
-                  <Collapse in={expandedId === i} timeout="auto" unmountOnExit>
+                  <Collapse
+                    in={expandedId === i}
+                    timeout="auto"
+                    unmountOnExit
+                    style={{ width: "100%" }}
+                  >
                     <CardContent>
                       <div
                         style={{
@@ -192,6 +265,7 @@ const Row = ({ title, fetchUrl }) => {
                           justifyContent: "space-between",
                           alignItems: "center",
                           paddingBlock: "10px",
+                          width: "100%",
                         }}
                       >
                         <Typography
@@ -199,6 +273,7 @@ const Row = ({ title, fetchUrl }) => {
                           style={{
                             color: "rgb(107,107,107)",
                             fontSize: "14px",
+                            flexGrow: "1",
                           }}
                         >
                           Release Date:
