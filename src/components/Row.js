@@ -93,7 +93,6 @@ const Row = ({ title, fetchUrl }) => {
       if (!fetching && scrollHeight - scrollTop <= clientHeight * 1.5) {
         fetching = true;
         if (hasNextPage) {
-          console.log("hi");
           await fetchNextPage();
         }
         fetching = false;

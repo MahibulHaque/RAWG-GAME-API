@@ -9,13 +9,13 @@ const NextWeek = new Date();
 NextWeek.setDate(NextWeek.getDate()+7);
 
 const NextMonth = new Date();
-NextMonth.setMonth(NextMonth.getMonth()+1);
+NextMonth.setMonth(NextMonth.getMonth()-1);
 
 const requests = {
   fetchTop10: `https://api.rawg.io/api/games?key=${API_KEY}&metacritic=70,100`,
   fetchActionGames: `https://api.rawg.io/api/games?key=${API_KEY}&genres=4`,
   fetchIndieGames: `https://api.rawg.io/api/games?key=${API_KEY}&genres=51&dates=2020-12-31,2021-9-31`,
-  fetchThisMonth: `https://api.rawg.io/api/games?key=${API_KEY}&dates=${todayDate.toISOString().split('T')[0]},${NextMonth.toISOString().split('T')[0]}`,
+  fetchThisMonth: `https://api.rawg.io/api/games?key=${API_KEY}&dates=${NextMonth.toISOString().split('T')[0]},${todayDate.toISOString().split('T')[0]}`,
   fetchThisWeek: `https://api.rawg.io/api/games?key=${API_KEY}&dates=${PreviousWeekDate.toISOString().split('T')[0]},${todayDate.toISOString().split('T')[0]}`,
   fetchNextWeek: `https://api.rawg.io/api/games?key=${API_KEY}&dates=${NextWeek.toISOString().split('T')[0]},${NextWeek.toISOString().split('T')[0]}`,
   fetchRacingGames: `https://api.rawg.io/api/games?key=${API_KEY}&genres=1`,
